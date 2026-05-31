@@ -1,5 +1,5 @@
-import { schema } from '~drizzle/schema';
-export * from '~drizzle/schema';
+import { schema } from '@sova/drizzle-schema';
+export * from '@sova/drizzle-schema';
 
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';

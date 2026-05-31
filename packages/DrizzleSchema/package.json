@@ -1,0 +1,8 @@
+{
+  "name": "@sova/drizzle-schema",
+  "main": "./src/schema.ts",
+  "types": "./src/schema.ts",
+  "devDependencies": {
+    "drizzle-orm": "^0.45.2"
+  }
+}
