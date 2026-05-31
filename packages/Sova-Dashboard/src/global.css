@@ -1,0 +1,75 @@
+/**
+ * Tailwind CSS imports
+ * View the full documentation at https://tailwindcss.com
+ */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+
+@import "tailwindcss";
+
+@plugin "@anuragroy/tailwindcss-animate";
+
+@import "@luminescent/ui";
+
+@source "../node_modules/@luminescent/ui-qwik";
+
+@theme {
+  --lum-border-radius: 2rem;
+  --color-lum-border: #dfdfdfaa;
+  --color-lum-accent: var(--color-violet-800);
+  --color-nav-bg: --alpha(var(--color-blue-950) / 20%);
+  --color-bg: color-mix(in srgb, var(--color-gray-950) 10%, #000000);
+  --font-display: "Figtree", "sans-serif";
+  --lum-border-superellipse: 2;
+  --lum-depth: 1;
+}
+
+@supports (corner-shape: squircle) {
+  :root {
+    --lum-border-radius: 4rem;
+  }
+}
+
+html {
+  font-family: var(--font-display);
+  overflow: overlay;
+  background: linear-gradient(
+    var(--color-gray-950) 0%,
+    var(--color-bg) 100%
+  );
+  background-color: var(--color-bg);
+}
+
+* {
+  scroll-behavior: smooth;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+*::-webkit-scrollbar {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background-color: #00000022;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #ffffff20;
+  border: 1px solid #ffffff20;
+  border-radius: 3px;
+}
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+
+#sPath {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw 3s ease-in-out forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
