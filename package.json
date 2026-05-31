@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@libsql/client": "^0.17.3",
     "@types/body-parser": "1.19.6",
     "@types/diff": "8.0.0",
     "@types/eslint": "^9.6.1",
@@ -42,6 +43,8 @@
     "@types/ms": "2.1.0",
     "@types/node": "25.9.1",
     "@types/node-cron": "3.0.11",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
     "eslint": "10.4.0",
     "globals": "^17.6.0",
     "tsconfig-paths": "4.2.0",
