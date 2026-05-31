@@ -31,7 +31,8 @@
     "resolveJsonModule": true,
 
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~drizzle/*": ["./drizzle/*"]
     },
   }
 }
