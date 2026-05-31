@@ -1,4 +1,4 @@
-import { Collection, Message } from 'discord.js';
+import { ApplicationIntegrationType, Collection, InteractionContextType, Message, PermissionsBitField } from 'discord.js';
 import getMessages from '~/util/messages/getMessages';
 import { CheckGreen, Loading } from '~/dict/emoji';
 import { Command } from '~/lists/Objects';
@@ -26,6 +26,15 @@ export const clear: Command<'cached'> = {
     .addStringOption(stringOption => stringOption
       .setName('until')
       .setDescription('Clears all messages sent after this message Id'),
+    )
+    .setDefaultMemberPermissions(
+      PermissionsBitField.Flags.ManageMessages,
+    )
+    .setContexts(
+      InteractionContextType.Guild,
+    )
+    .setIntegrationTypes(
+      ApplicationIntegrationType.GuildInstall,
     ),
   channelPermissions: ['ManageMessages'],
   botChannelPerms: ['ManageMessages'],

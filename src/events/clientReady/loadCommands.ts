@@ -1,4 +1,4 @@
-import { ApplicationCommandType, Client, ContextMenuCommandBuilder, SlashCommandBuilder, type ApplicationCommandDataResolvable } from 'discord.js';
+import { ApplicationCommandType, ApplicationIntegrationType, Client, ContextMenuCommandBuilder, InteractionContextType, SlashCommandBuilder, type ApplicationCommandDataResolvable } from 'discord.js';
 import commands from '~/lists/cmds';
 import contextcommands from '~/lists/context';
 
@@ -17,7 +17,16 @@ export default async (client: Client) =>{
       // set name and description from command object
       const cmd = new SlashCommandBuilder()
         .setName(command.name)
-        .setDescription(truncateString(command.description, 99));
+        .setDescription(truncateString(command.description, 99))
+        .setContexts(
+          InteractionContextType.Guild,
+          InteractionContextType.BotDM,
+          InteractionContextType.PrivateChannel,
+        )
+        .setIntegrationTypes(
+          ApplicationIntegrationType.GuildInstall,
+          ApplicationIntegrationType.UserInstall,
+        );
 
       // Add any options from the command object
       if (command.cmd) command.cmd(cmd);
@@ -28,14 +37,26 @@ export default async (client: Client) =>{
       logger.info(`Loading context command ${command.name}`);
 
       // set name and type from command object
-      const cmd = (command.cmd ?? new ContextMenuCommandBuilder())
+      const cmd = new ContextMenuCommandBuilder()
         .setName(command.name)
-        .setType(ApplicationCommandType[command.type]);
+        .setType(ApplicationCommandType[command.type])
+        .setContexts(
+          InteractionContextType.Guild,
+          InteractionContextType.BotDM,
+          InteractionContextType.PrivateChannel,
+        )
+        .setIntegrationTypes(
+          ApplicationIntegrationType.GuildInstall,
+          ApplicationIntegrationType.UserInstall,
+        );
+
+      // Add any options from the command object
+      if (command.cmd) command.cmd(cmd);
 
       cmds.push(cmd);
     }),
   ]);
 
-  await client.application?.commands.set(cmds, '811354612547190794');
+  await client.application?.commands.set(cmds);
   logger.info(`${cmds.length} slash/context commands loaded`);
 };

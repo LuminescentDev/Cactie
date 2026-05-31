@@ -15,7 +15,7 @@ export const questions: Command<'cached'> = {
       .setMaxValue(25),
     ),
   async execute(interaction) {
-    const guesser = interaction.options.getMember('user')?.user;
+    const guesser = interaction.options.getUser('user');
     if (!guesser) {
       error('Invalid member! Are they in this server?', interaction, true);
       return;

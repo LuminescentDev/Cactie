@@ -1,4 +1,4 @@
-import { ButtonBuilder, ButtonInteraction, ButtonStyle, ComponentType, ContainerBuilder, MessageFlags } from 'discord.js';
+import { ApplicationIntegrationType, ButtonBuilder, ButtonInteraction, ButtonStyle, ComponentType, ContainerBuilder, InteractionContextType, MessageFlags } from 'discord.js';
 import { getUserInfo } from '~/util/misc/userinfo';
 import { UserRound } from '~/dict/emoji';
 import { Command } from '~/lists/Objects';
@@ -6,6 +6,13 @@ import { Command } from '~/lists/Objects';
 export const server: Command<'cached'> = {
   description: 'Discord server info',
   cooldown: 10,
+  cmd: cmd => cmd
+    .setContexts(
+      InteractionContextType.Guild,
+    )
+    .setIntegrationTypes(
+      ApplicationIntegrationType.GuildInstall,
+    ),
   async execute(interaction) {
     try {
       const guild = interaction.guild;

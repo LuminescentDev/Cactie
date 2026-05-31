@@ -8,7 +8,13 @@ export const act: Command = {
   description: '{NAME}!',
   cmd: cmd => cmd.addStringOption(SomeoneOption),
   async execute(interaction) {
-    try { action(interaction, interaction.options.getString('someone'), interaction.commandName as keyof typeof actions); }
+    try {
+      action(
+        interaction,
+        interaction.commandName as keyof typeof actions,
+        interaction.options.getString('someone') ?? undefined,
+      );
+    }
     catch (err) { error(err, interaction); }
   },
 };

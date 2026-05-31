@@ -2,7 +2,11 @@ import { PermissionsBitField, GuildMember, GuildChannel, type Channel, DMChannel
 
 export type PermissionChannel = Exclude<Channel, DMChannel | PartialDMChannel | PartialGroupDMChannel | ForumChannel>;
 
-export default function checkPerms(reqPerms: (keyof typeof PermissionsBitField.Flags)[], member: GuildMember, channel?: PermissionChannel | string) {
+export default function checkPerms(
+  reqPerms: (keyof typeof PermissionsBitField.Flags)[],
+  member: GuildMember,
+  channel?: PermissionChannel | string,
+) {
   // If member is owner, override
   if (member.id == '249638347306303499') return;
 

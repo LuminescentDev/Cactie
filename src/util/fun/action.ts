@@ -1,13 +1,14 @@
-import { ChatInputCommandInteraction, StringSelectMenuInteraction, ContainerBuilder, MessageFlags, GuildMember } from 'discord.js';
+import { ChatInputCommandInteraction, StringSelectMenuInteraction, ContainerBuilder, MessageFlags, GuildMember, User } from 'discord.js';
 import actions from '~/dict/actions.json';
 
 let current: number;
 
-export default async function action(interaction: StringSelectMenuInteraction<'cached'> | ChatInputCommandInteraction, target: string | null, type: keyof typeof actions) {
+export default async function action(interaction: StringSelectMenuInteraction<'cached'> | ChatInputCommandInteraction, type: keyof typeof actions, target?: string) {
   // Check if arg is a user and set it
-  let user: GuildMember | undefined;
+  let user: GuildMember | User | undefined;
   if (target) {
     user = interaction.guild?.members.cache.get(target.replace(/\D/g, ''));
+    if (!user) user = interaction.client.users.cache.get(target.replace(/\D/g, ''));
     if (user) target = user.displayName;
   }
 
@@ -21,7 +22,7 @@ export default async function action(interaction: StringSelectMenuInteraction<'c
     current = i;
   }
 
-  const Title = `${interaction.user} ${actions[type].plural} ${user ?? target}`;
+  const Title = `${interaction.user} ${actions[type].plural} ${user ?? target ?? 'you'}`;
 
   const ActionContainer = new ContainerBuilder()
     .addSectionComponents((section) => section

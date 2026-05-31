@@ -16,19 +16,19 @@ class Emoji {
   }
 }
 
-export const CheckGreen = new Emoji('CheckGreen', '1509237408850509875');
-export const ChevronDownRed = new Emoji('ChevronDownRed', '1509237424499331132');
-export const ChevronLeft = new Emoji('ChevronLeft', '1509237444392784165');
-export const ChevronRight = new Emoji('ChevronRight', '1509237481214709830');
-export const ChevronUpGreen = new Emoji('ChevronUpGreen', '1509237507793883187');
-export const Circle = new Emoji('Circle', '1509237526949531780');
-export const CircleXRed = new Emoji('CircleXRed', '1509237546327081001');
-export const CoinFlip = new Emoji('CoinFlip', '1509247496793227435', true);
-export const Empty = new Emoji('Empty', '1509238426648576030');
-export const Loading = new Emoji('Loading', '1509168416873779240', true);
-export const MessageCircleQuestionMark = new Emoji('MessageCircleQuestionMark_', '1509605116507066398');
-export const RefreshCw = new Emoji('RefreshCw', '1509237585011277976');
-export const Search = new Emoji('Search', '1509237614203637962');
-export const UserRound = new Emoji('UserRound', '1509965613102272675');
-export const X = new Emoji('X', '1509237633879113788');
-export const XRed = new Emoji('XRed', '1509241654048198686');
+export const CheckGreen = new Emoji('CheckGreen', '1510499766830759966');
+export const ChevronDownRed = new Emoji('ChevronDownRed', '1510499787580117022');
+export const ChevronLeft = new Emoji('ChevronLeft', '1510499786950836375');
+export const ChevronRight = new Emoji('ChevronRight', '1510499786225221773');
+export const ChevronUpGreen = new Emoji('ChevronUpGreen', '1510499785272983693');
+export const Circle = new Emoji('Circle', '1510499784274739343');
+export const CircleXRed = new Emoji('CircleXRed', '1510499783293538454');
+export const CoinFlip = new Emoji('CoinFlip', '1510501036895371394', true);
+export const Empty = new Emoji('Empty', '1510501105187160134');
+export const Loading = new Emoji('Loading', '1510499873823260712', true);
+export const MessageCircleQuestionMark = new Emoji('MessageCircleQuestionMark', '1510500702147973150');
+export const RefreshCw = new Emoji('RefreshCw', '1510499782223859872');
+export const Search = new Emoji('Search', '1510499781599035502');
+export const UserRound = new Emoji('UserRound', '1510500706799583283');
+export const X = new Emoji('X', '1510499780445339760');
+export const XRed = new Emoji('XRed', '1510499779816456284');

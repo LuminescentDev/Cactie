@@ -26,9 +26,10 @@ export class LoadedCommand extends Command {
   name: string;
 }
 
+type ContextMenuCommandBuilderCallback = (contextMenuCommandBuilder: ContextMenuCommandBuilder) => ContextMenuCommandBuilder;
 export class ContextMenuCommand<T extends 'User' | 'Message'> {
   name: string;
-  cmd?: ContextMenuCommandBuilder;
+  cmd?: ContextMenuCommandBuilderCallback;
   botPerms?: (keyof typeof PermissionsBitField.Flags)[];
   flags?: InteractionDeferReplyOptions.flags;
   defer?: boolean;

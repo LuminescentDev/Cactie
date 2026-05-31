@@ -12,9 +12,6 @@ export default async (client: Client<true>, interaction: CommandInteraction) => 
   const command = slashcommands.get(interaction.commandName);
   if (!command) return;
 
-  // Typescript is stupid
-  if (typeof command.name != 'string') return;
-
   // Get cooldowns and check if cooldown exists, if not, create it
   if (!cooldowns.has(command.name!)) cooldowns.set(command.name!, new Collection());
 
@@ -52,27 +49,20 @@ export default async (client: Client<true>, interaction: CommandInteraction) => 
   logger.info(`${interaction.user.username} issued slash command: /${interaction.commandName} ${interaction.options.getSubcommand(false) ?? ''} in ${interaction.guild?.name ?? 'DMs'}`.replace(' ,', ','));
 
   // Check if user has the permissions necessary in the channel to use the command
-  if (command.channelPermissions) {
-    if (!interaction.inCachedGuild()) return error('This command can not be used in DMs!', interaction, true);
+  if (command.channelPermissions && interaction.inCachedGuild()) {
     const permCheck = checkPerms(command.channelPermissions, interaction.member, interaction.channel!);
     if (permCheck) return error(permCheck, interaction, true);
   }
 
-  // Check if user has the permissions necessary in the guild to use the command
-  if (command.permission) {
-    if (!interaction.inCachedGuild()) return error('This command can not be used in DMs!', interaction, true);
-  }
-
   // Check if bot has the permissions necessary in the channel to run the command
-  if (command.botChannelPerms) {
-    if (!interaction.inCachedGuild()) return error('This command can not be used in DMs!', interaction, true);
+  // if it's in dms, we don't need to check for any permissions
+  if (command.botChannelPerms && interaction.inCachedGuild()) {
     const permCheck = checkPerms(command.botChannelPerms, interaction.guild.members.me!, interaction.channel!);
     if (permCheck) return error(permCheck, interaction, true);
   }
 
   // Check if bot has the permissions necessary in the guild to run the command
-  if (command.botPerms) {
-    if (!interaction.inCachedGuild()) return error('This command can not be used in DMs!', interaction, true);
+  if (command.botPerms && interaction.inCachedGuild()) {
     const permCheck = checkPerms(command.botPerms, interaction.guild.members.me!);
     if (permCheck) return error(permCheck, interaction, true);
   }

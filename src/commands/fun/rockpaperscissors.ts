@@ -9,7 +9,7 @@ export const rockpaperscissors: Command<'cached'> = {
   cmd: cmd => cmd.addUserOption(option => UserOption(option).setRequired(true)),
   async execute(interaction) {
     const user = interaction.user;
-    const opponent = interaction.options.getMember('user')?.user;
+    const opponent = interaction.options.getUser('user');
     if (!opponent) {
       error('Invalid member! Are they in this server?', interaction, true);
       return;

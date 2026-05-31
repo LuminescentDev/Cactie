@@ -9,7 +9,7 @@ export const tictactoe: Command<'cached'> = {
   cmd: cmd => cmd.addUserOption(option => UserOption(option).setRequired(true)),
   async execute(interaction) {
     const xUser = interaction.user;
-    const oUser = interaction.options.getMember('user')?.user;
+    const oUser = interaction.options.getUser('user');
     if (!oUser) {
       error('Invalid member! Are they in this server?', interaction, true);
       return;

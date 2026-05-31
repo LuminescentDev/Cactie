@@ -85,7 +85,7 @@ export const context: ContextMenuCommand<'User'> = {
       });
       collectorSelect.on('collect', async selint => {
         const actionName = selint.values[0]?.split('_')[1];
-        action(selint, member.id, actionName as keyof typeof actions);
+        action(selint, actionName as keyof typeof actions, member.id);
         collectorSelect.stop();
         collectorButton.stop();
       });
