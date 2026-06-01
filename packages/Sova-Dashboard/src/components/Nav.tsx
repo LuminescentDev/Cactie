@@ -60,7 +60,7 @@ export default component$(({ session }: {
 export const SocialButtons = component$(({ large }: { large?: boolean }) => {
   return <>
     <a
-      href="https://github.com/saboooor/Cactie"
+      href="https://github.com/saboooor/Sova"
       title="GitHub"
       class={{
         'lum-btn lum-bg-transparent hover:lum-bg-nav-bg fill-current': true,

@@ -113,11 +113,11 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'The Cactie Dashboard',
+      content: 'The Sova Dashboard',
     },
     {
       property: 'og:description',
-      content: 'The Cactie Dashboard',
+      content: 'The Sova Dashboard',
     },
   ],
 };
