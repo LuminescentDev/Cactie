@@ -50,10 +50,10 @@ export const onGet: RequestHandler = async (requestEvent) => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-    if (!tokenResponseData.ok) {
-      throw new Error('OAuth token exchange failed');
-    }
     const oauthData = await tokenResponseData.json();
+    if (oauthData.error) {
+      throw new Error(`OAuth token exchange failed: ${oauthData.error_description || oauthData.error}`);
+    }
     const res = await fetch('https://discord.com/api/v10/users/@me', { headers: { authorization: `${oauthData.token_type} ${oauthData.access_token}` } });
     if (!res.ok) {
       throw new Error('Failed to fetch Discord user');
@@ -110,7 +110,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
 
   } catch (error) {
     console.error(error);
-    throw redirect(302, '/login?error=auth');
+    throw redirect(302, `/?error=${error instanceof Error ? encodeURIComponent(error.message) : 'Unknown error'}`);
   }
   const href = cookie.get('redirecturl')?.value;
   throw redirect(302, href ?? '/');
