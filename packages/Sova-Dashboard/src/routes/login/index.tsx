@@ -1,6 +1,7 @@
 import type { RequestHandler } from '@qwik.dev/router';
 import { eq } from 'drizzle-orm/sql/expressions/conditions';
-import { sessions, tursoDb } from '~/utils/drizzle';
+import { tursoDb } from '~/utils/drizzle';
+import { sessions } from '@sova/drizzle-schema';
 
 export const onGet: RequestHandler = async (requestEvent) => {
   const { url, redirect, cookie, env } = requestEvent;
@@ -59,8 +60,8 @@ export const onGet: RequestHandler = async (requestEvent) => {
     }
     const userdata = await res.json();
 
-    const session = await tursoDb(requestEvent)
-      .select()
+    const db = await tursoDb(requestEvent);
+    const session = await db.select()
       .from(sessions)
       .where(
         eq(sessions.discordId, userdata.id),
@@ -71,8 +72,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
     if (!session) {
       sessionId = crypto.randomUUID();
 
-      await tursoDb(requestEvent)
-        .insert(sessions)
+      await db.insert(sessions)
         .values({
           sessionId: sessionId,
           discordId: userdata.id,
@@ -90,8 +90,7 @@ export const onGet: RequestHandler = async (requestEvent) => {
     else {
       sessionId = session.sessionId;
 
-      await tursoDb(requestEvent)
-        .update(sessions)
+      await db.update(sessions)
         .set({
           accessToken: oauthData.access_token,
           refreshToken: oauthData.refresh_token,

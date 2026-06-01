@@ -1,19 +1,21 @@
 
-import { routeLoader$ } from '@qwik.dev/router';
+import { routeLoader$, server$ } from '@qwik.dev/router';
 import type { RequestEventBase } from '@qwik.dev/router';
-import { sessions, tursoDb } from '~/utils/drizzle';
+import { tursoDb } from '~/utils/drizzle';
+import { sessions } from '@sova/drizzle-schema';
 import { eq } from 'drizzle-orm';
 
 export const useSession = routeLoader$(async (requestEvent) => {
   return await getSession(requestEvent);
 });
 
-export default async function getSession(requestEvent: RequestEventBase) {
+export const getSession = server$(async function getSession(requestEvent?: RequestEventBase) {
+  requestEvent = requestEvent ?? this;
   const sid = requestEvent.cookie.get('sessionid')?.value;
   if (!sid) return null;
 
-  const session = await tursoDb(requestEvent)
-    .select()
+  const db = await tursoDb(requestEvent);
+  const session = await db.select()
     .from(sessions)
     .where(
       eq(sessions.sessionId, sid),
@@ -35,4 +37,4 @@ export default async function getSession(requestEvent: RequestEventBase) {
     pfp: session.pfp,
     accent: session.accent,
   };
-}
+});

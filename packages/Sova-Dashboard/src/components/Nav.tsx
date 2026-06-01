@@ -1,5 +1,5 @@
 import { component$ } from '@qwik.dev/core';
-import { Link } from '@qwik.dev/router';
+import { Link, LoaderSignal } from '@qwik.dev/router';
 import { Nav, SelectMenu } from '@luminescent/ui-qwik';
 import SiGithub from 'simple-icons-qwik/icons/SiGithub';
 import SiDiscord from 'simple-icons-qwik/icons/SiDiscord';
@@ -7,10 +7,15 @@ import AppWindow from 'lucide-icons-qwik/icons/AppWindow';
 import Sparkles from 'lucide-icons-qwik/icons/Sparkles';
 import LogOut from 'lucide-icons-qwik/icons/LogOut';
 import Sova from './images/Sova';
-import { useSession } from '~/routes/plugin@auth';
 
-export default component$(() => {
-  const session = useSession();
+export default component$(({ session }: {
+  session: LoaderSignal<{
+    sessionId: string;
+    discordId: string;
+    pfp: string | null;
+    accent: string | null;
+} | null>;
+}) => {
   return (
     <Nav floating fixed colorClass="lum-grad-bg-nav-bg !text-lum-text">
       <Link q:slot="start" href="/" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg rounded-lum-2">

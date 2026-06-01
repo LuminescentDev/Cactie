@@ -19,8 +19,7 @@
     "noEmit": true,
     "types": ["node", "eslint", "vite/client"],
     "paths": {
-      "~/*": ["./src/*"],
-      "@sova/drizzle-schema": ["../packages/DrizzleSchema/src"]
+      "~/*": ["./src/*"]
     },
   },
   "include": ["src", "./*.d.ts", "./*.config.ts", "../vite.config.ts", "vite.config.mts"],
