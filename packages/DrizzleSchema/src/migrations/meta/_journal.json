@@ -15,6 +15,13 @@
       "when": 1780265012533,
       "tag": "0001_tough_silvermane",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1780280164868,
+      "tag": "0002_freezing_dormammu",
+      "breakpoints": true
     }
   ]
 }

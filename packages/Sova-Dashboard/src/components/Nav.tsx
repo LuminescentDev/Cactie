@@ -1,23 +1,43 @@
 import { component$ } from '@qwik.dev/core';
 import { Link } from '@qwik.dev/router';
-import { Nav } from '@luminescent/ui-qwik';
+import { Nav, SelectMenu } from '@luminescent/ui-qwik';
 import SiGithub from 'simple-icons-qwik/icons/SiGithub';
 import SiDiscord from 'simple-icons-qwik/icons/SiDiscord';
 import AppWindow from 'lucide-icons-qwik/icons/AppWindow';
 import Sparkles from 'lucide-icons-qwik/icons/Sparkles';
+import LogOut from 'lucide-icons-qwik/icons/LogOut';
 import Sova from './images/Sova';
+import { useSession } from '~/routes/plugin@auth';
 
 export default component$(() => {
+  const session = useSession();
   return (
-    <Nav floating fixed colorClass="lum-bg-nav-bg !text-lum-text">
+    <Nav floating fixed colorClass="lum-grad-bg-nav-bg !text-lum-text">
       <Link q:slot="start" href="/" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg rounded-lum-2">
         <Sova size={20} />
         Sova
       </Link>
 
-      <Link q:slot="center" href="/dashboard" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg hidden sm:flex rounded-lum-2">
-        <AppWindow size={20} /> Dashboard (coming soon)
-      </Link>
+      {session.value &&
+        <Link q:slot="center" href="/dashboard" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg hidden sm:flex rounded-lum-2">
+          <AppWindow size={20} /> Dashboard
+        </Link>
+      }
+
+      {!session.value &&
+        <Link q:slot="end" href="/login" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg hidden sm:flex rounded-lum-2">
+          Login
+        </Link>
+      }
+      {session.value &&
+        <SelectMenu id="profile" q:slot='end' class="lum-bg-transparent hover:lum-bg-nav-bg rounded-lum-2" panelClass="lum-bg rounded-lum-1">
+          <img q:slot="dropdown" src={session.value?.pfp ?? 'https://cdn.discordapp.com/embed/avatars/0.png'} class="rounded-full min-h-6 max-h-6 min-w-6 max-w-6" width={24} height={24} />
+          <Link href="/logout" q:slot="extra-buttons" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg hidden sm:flex rounded-lum-2">
+            <LogOut size={20} />
+            Logout
+          </Link>
+        </SelectMenu>
+      }
       <Link q:slot="end" href="/invite" class="lum-btn lum-bg-transparent hover:lum-bg-nav-bg hidden sm:flex rounded-lum-2">
         <Sparkles size={20} /> Invite
       </Link>

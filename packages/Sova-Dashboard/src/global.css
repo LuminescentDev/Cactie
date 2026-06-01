@@ -13,9 +13,9 @@
 @source "../node_modules/@luminescent/ui-qwik";
 
 @theme {
-  --lum-border-radius: 2rem;
+  --lum-border-radius: 1rem;
   --color-lum-border: #dfdfdfaa;
-  --color-lum-accent: var(--color-violet-800);
+  --color-lum-accent: var(--color-blue-800);
   --color-nav-bg: --alpha(var(--color-blue-950) / 20%);
   --color-bg: color-mix(in srgb, var(--color-gray-950) 10%, #000000);
   --font-display: "Figtree", "sans-serif";

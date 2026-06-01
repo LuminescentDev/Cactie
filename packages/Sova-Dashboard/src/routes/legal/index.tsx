@@ -3,13 +3,13 @@ import type { DocumentHead } from '@qwik.dev/router';
 
 export default component$(() => {
   return (
-    <section class="mx-auto max-w-5xl px-6 items-center min-h-[100svh] pt-32">
+    <section class="mx-auto max-w-5xl px-6 items-center min-h-svh pt-32">
       <div>
         <h1 class="font-bold text-white text-4xl sm:text-5xl md:text-6xl">
           <span class="text-blue-200" style={{ filter: 'drop-shadow(0 0 3rem rgb(74 222 128));' }}>Privacy</span> Policy / <span class="text-luminescent-200" style={{ filter: 'drop-shadow(0 0 3rem #CB6CE6);' }}>Terms</span> of Use.
         </h1>
         <p class="mt-5 text-lg font-bold text-slate-300">
-          As of May 4th, 2024.
+          As of May 31st, 2026.
         </p>
       </div>
       <div class="mt-5 text-slate-300">
