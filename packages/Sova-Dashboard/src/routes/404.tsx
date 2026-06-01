@@ -1,6 +1,7 @@
 import { component$ } from '@qwik.dev/core';
 import { DocumentHead, Link } from '@qwik.dev/router';
 import Sova from '~/components/images/Sova';
+import Home from 'lucide-icons-qwik/icons/Home';
 
 export default component$(() => {
   return (
@@ -19,6 +20,7 @@ export default component$(() => {
       </p>
       <div class="grid sm:flex gap-3 pt-4">
         <Link href="/" class="lum-btn lum-btn-p-4">
+          <Home size={24} />
           Go back home
         </Link>
       </div>

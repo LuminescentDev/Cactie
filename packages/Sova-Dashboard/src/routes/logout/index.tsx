@@ -6,7 +6,7 @@ import { getSession } from '../plugin@auth';
 
 export const onGet: RequestHandler = async (requestEvent) => {
   const { redirect, cookie } = requestEvent;
-  const session = await getSession(requestEvent);
+  const session = await getSession();
 
   if (session) {
     const db = await tursoDb(requestEvent);

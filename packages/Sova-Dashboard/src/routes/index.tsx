@@ -1,5 +1,5 @@
 import { component$ } from '@qwik.dev/core';
-import { type DocumentHead } from '@qwik.dev/router';
+import { Link, type DocumentHead } from '@qwik.dev/router';
 
 import AppWindow from 'lucide-icons-qwik/icons/AppWindow';
 import Sparkles from 'lucide-icons-qwik/icons/Sparkles';
@@ -35,10 +35,10 @@ export default component$(() => {
             class="lum-btn lum-btn-p-4 fill-current xl:lum-btn-p-6 text-xl lum-grad-bg-indigo-600/40 hover:lum-bg-indigo-700 animate-in fade-in motion-safe:slide-in-from-top-16 motion-safe:anim-duration-800">
             <SiDiscord size={32} /> Support Server
           </a>
-          <a href="/dashboard" target="_blank"
-            class="lum-btn lum-btn-p-4 fill-current xl:lum-btn-p-6 text-xl lum-grad-bg-green-600/40 hover:lum-bg-green-700 animate-in fade-in motion-safe:slide-in-from-top-16 motion-safe:anim-duration-800">
+          <Link href="/dashboard"
+            class="lum-btn lum-btn-p-4 fill-current xl:lum-btn-p-6 text-xl lum-grad-bg-cyan-600/40 hover:lum-bg-cyan-700 animate-in fade-in motion-safe:slide-in-from-top-16 motion-safe:anim-duration-800">
             <AppWindow size={32} /> Dashboard
-          </a>
+          </Link>
         </div>
       </div>
     </section>
