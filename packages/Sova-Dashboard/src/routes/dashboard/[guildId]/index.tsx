@@ -17,19 +17,20 @@ import User2 from 'lucide-icons-qwik/icons/User2';
 import Terminal from 'lucide-icons-qwik/icons/Terminal';
 import Ticket from 'lucide-icons-qwik/icons/Ticket';
 import Tags from 'lucide-icons-qwik/icons/Tags';
+import { Label } from '@luminescent/ui-qwik';
 
 const General = component$(() => {
   return (
     <>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#join-message">
-        <DoorClosed size={20} />
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#join-message">
+        <DoorOpen size={20} />
         Join Message
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#leave-message">
-        <DoorOpen size={20} />
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#leave-message">
+        <DoorClosed size={20} />
         Leave Message
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#leave-message">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#leave-message">
         <Mic size={20} />
         Custom Voice Chats
       </a>
@@ -40,23 +41,23 @@ const General = component$(() => {
 const Tickets = component$(() => {
   return (
     <>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#tickets-channel-name">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#tickets-channel-name">
         <Hash size={20} />
         Channel Name
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#tickets-transcripts">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#tickets-transcripts">
         <Folder size={20} />
         Category
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#tickets-access-role">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#tickets-access-role">
         <AtSign size={20} />
         Access Role
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#tickets-ping-on-creation">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#tickets-ping-on-creation">
         <AtSign size={20} />
         Ping on Creation
       </a>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#tickets-transcripts">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#tickets-transcripts">
         <Logs size={20} />
         Transcripts
       </a>
@@ -67,7 +68,7 @@ const Tickets = component$(() => {
 const AuditLogs = component$(() => {
   return (
     <>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#audit-logs">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#audit-logs">
         <Plus size={20} />
         Add
       </a>
@@ -78,7 +79,7 @@ const AuditLogs = component$(() => {
 const CustomCommands = component$(() => {
   return (
     <>
-      <a class="lum-btn lum-bg-transparent rounded-lum-6" href="#custom-commands">
+      <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#custom-commands">
         <Plus size={20} />
         Add
       </a>
@@ -92,7 +93,7 @@ export default component$(() => {
   const { guild, channels, roles } = guildData;
 
   return (
-    <section class="menu-pattern-bg grid gap-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-7xl min-h-svh">
+    <section class="grid gap-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-7xl min-h-svh">
       <MobileMenu>
         <a class="lum-btn lum-bg-transparent rounded-lum-2" href="#general">
           <Settings size={20} />
@@ -114,7 +115,7 @@ export default component$(() => {
       <Menu>
         <MenuCategory>
           <div q:slot="name" class="flex items-center gap-2 px-2 py-2 border-b border-gray-700">
-            <Settings size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded-full" />
+            <Settings size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded" />
             <p class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg">
               General
             </p>
@@ -123,7 +124,7 @@ export default component$(() => {
         </MenuCategory>
         <MenuCategory>
           <div q:slot="name" class="flex items-center gap-2 px-2 py-2 border-b border-gray-700">
-            <Ticket size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded-full" />
+            <Ticket size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded" />
             <p class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg">
               Tickets
             </p>
@@ -132,7 +133,7 @@ export default component$(() => {
         </MenuCategory>
         <MenuCategory>
           <div q:slot="name" class="flex items-center gap-2 px-2 py-2 border-b border-gray-700">
-            <Logs size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded-full" />
+            <Logs size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded" />
             <p class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg">
               Audit Logs
             </p>
@@ -141,7 +142,7 @@ export default component$(() => {
         </MenuCategory>
         <MenuCategory>
           <div q:slot="name" class="flex items-center gap-2 px-2 py-2 border-b border-gray-700">
-            <Terminal size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded-full" />
+            <Terminal size={24} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-1 rounded" />
             <p class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg">
               Custom Commands
             </p>
@@ -149,7 +150,8 @@ export default component$(() => {
           <CustomCommands />
         </MenuCategory>
       </Menu>
-      <div class="sm:col-span-2 lg:col-span-3 pt-35 sm:pt-25 px-4 sm:px-6">
+      <div class="sm:col-span-2 lg:col-span-3 pt-35 sm:pt-25 pr-4 sm:pr-6 pl-2 sm:pl-3">
+
         <div
           class="lum-card relative lum-bg-transparent"
         >
@@ -211,6 +213,75 @@ export default component$(() => {
             </div>
           </div>
         </div>
+
+        <div class="flex items-center gap-4 pb-4 mt-5 mb-5 border-b border-gray-700" id="general">
+          <Settings size={48} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-2 rounded-lum" />
+          <h2 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-xl sm:text-2xl md:text-3xl">
+            General
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="lum-card" id="join-message">
+            <div class="flex items-center gap-3 px-2 pb-4 border-b border-gray-700">
+              <DoorOpen size={30} />
+              <h3 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg sm:text-xl md:text-2xl">
+                Join Message
+              </h3>
+            </div>
+            <Label for="joinmessage-message" label="The message when someone joins the server">
+              <textarea
+                id="joinmessage-message" class="lum-input rounded-lum-2 w-full whitespace-pre-wrap"
+                value={''} placeholder="The content of the message sent when someone joins"
+                onChange$={async () => {
+                }}>
+              </textarea>
+              <p class="text-lum-text-secondary">
+                Placeholders: <code>{'{USER MENTION}'}</code> <code>{'{USERNAME}'}</code>
+              </p>
+            </Label>
+          </div>
+          <div class="lum-card" id="leave-message">
+            <div class="flex items-center gap-3 px-2 pb-4 border-b border-gray-700">
+              <DoorClosed size={30} />
+              <h3 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-lg sm:text-xl md:text-2xl">
+                Leave Message
+              </h3>
+            </div>
+            <Label for="leavemessage-message" label="The message when someone leaves the server">
+              <textarea
+                id="leavemessage-message" class="lum-input rounded-lum-2 w-full whitespace-pre-wrap"
+                value={''} placeholder="The content of the message sent when someone leaves"
+                onChange$={async () => {
+                }}>
+              </textarea>
+              <p class="text-lum-text-secondary">
+                Placeholders: <code>{'{USER MENTION}'}</code> <code>{'{USERNAME}'}</code>
+              </p>
+            </Label>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pb-4 mt-5 mb-5 border-b border-gray-700" id="tickets">
+          <Ticket size={48} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-2 rounded-lum" />
+          <h2 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-xl sm:text-2xl md:text-3xl">
+            Tickets
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-4 pb-4 mt-5 mb-5 border-b border-gray-700" id="audit-logs">
+          <Logs size={48} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-2 rounded-lum" />
+          <h2 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-xl sm:text-2xl md:text-3xl">
+            Audit Logs
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-4 pb-4 mt-5 mb-5 border-b border-gray-700" id="custom-commands">
+          <Terminal size={48} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-2 rounded-lum" />
+          <h2 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-xl sm:text-2xl md:text-3xl">
+            Custom Commands
+          </h2>
+        </div>
+
       </div>
     </section>
   );

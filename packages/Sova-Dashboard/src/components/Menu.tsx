@@ -2,7 +2,7 @@ import { component$, Slot } from '@qwik.dev/core';
 
 export default component$(() => {
   return (
-    <aside class="hidden sm:flex flex-col sticky max-h-180 top-0 pt-30 px-6" aria-label="Sidebar">
+    <aside class="hidden sm:flex flex-col sticky max-h-180 top-0 pt-35 sm:pt-25 pl-4 sm:pl-6 pr-2 sm:pr-3" aria-label="Sidebar">
       <div class={{
         'motion-safe:transition-all lum-card lum-bg-gray-900/50 gap-2 p-6 font-futura': true,
       }}>
