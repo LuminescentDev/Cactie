@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@anuragroy/tailwindcss-animate": "^1.0.6",
+    "@discordjs/builders": "^1.14.1",
     "@eslint/js": "^10.0.1",
     "@libsql/client": "latest",
     "@luminescent/icons-qwik": "0.1.1",

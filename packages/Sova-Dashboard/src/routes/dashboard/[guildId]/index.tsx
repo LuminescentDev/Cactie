@@ -1,4 +1,4 @@
-import { component$ } from '@qwik.dev/core';
+import { component$, useSignal } from '@qwik.dev/core';
 import { DocumentHead, routeLoader$ } from '@qwik.dev/router';
 import { getGuild } from '~/utils/discord';
 import Menu, { MenuCategory, MobileMenu } from '~/components/Menu';
@@ -12,12 +12,14 @@ import Hash from 'lucide-icons-qwik/icons/Hash';
 import Logs from 'lucide-icons-qwik/icons/Logs';
 import Mic from 'lucide-icons-qwik/icons/Mic';
 import Plus from 'lucide-icons-qwik/icons/Plus';
+import Puzzle from 'lucide-icons-qwik/icons/Puzzle';
 import Settings from 'lucide-icons-qwik/icons/Settings';
 import User2 from 'lucide-icons-qwik/icons/User2';
 import Terminal from 'lucide-icons-qwik/icons/Terminal';
 import Ticket from 'lucide-icons-qwik/icons/Ticket';
 import Tags from 'lucide-icons-qwik/icons/Tags';
-import { Label } from '@luminescent/ui-qwik';
+import X from 'lucide-icons-qwik/icons/X';
+import MessageBuilder from '~/components/MessageBuilder';
 
 const General = component$(() => {
   return (
@@ -91,6 +93,7 @@ export const useGuild = routeLoader$(async (props) => await getGuild(props));
 export default component$(() => {
   const guildData = useGuild().value;
   const { guild, channels, roles } = guildData;
+  const modalRef = useSignal<HTMLDialogElement>();
 
   return (
     <section class="grid gap-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-7xl min-h-svh">
@@ -229,17 +232,12 @@ export default component$(() => {
                 Join Message
               </h3>
             </div>
-            <Label for="joinmessage-message" label="The message when someone joins the server">
-              <textarea
-                id="joinmessage-message" class="lum-input rounded-lum-2 w-full whitespace-pre-wrap"
-                value={''} placeholder="The content of the message sent when someone joins"
-                onChange$={async () => {
-                }}>
-              </textarea>
-              <p class="text-lum-text-secondary">
-                Placeholders: <code>{'{USER MENTION}'}</code> <code>{'{USERNAME}'}</code>
-              </p>
-            </Label>
+            <div class="flex">
+              <button class="lum-btn rounded-lum-2" onClick$={() => modalRef.value?.showModal()}>
+                <Puzzle size={20} />
+                Open Message Builder
+              </button>
+            </div>
           </div>
           <div class="lum-card" id="leave-message">
             <div class="flex items-center gap-3 px-2 pb-4 border-b border-gray-700">
@@ -248,17 +246,12 @@ export default component$(() => {
                 Leave Message
               </h3>
             </div>
-            <Label for="leavemessage-message" label="The message when someone leaves the server">
-              <textarea
-                id="leavemessage-message" class="lum-input rounded-lum-2 w-full whitespace-pre-wrap"
-                value={''} placeholder="The content of the message sent when someone leaves"
-                onChange$={async () => {
-                }}>
-              </textarea>
-              <p class="text-lum-text-secondary">
-                Placeholders: <code>{'{USER MENTION}'}</code> <code>{'{USERNAME}'}</code>
-              </p>
-            </Label>
+            <div class="flex">
+              <button class="lum-btn rounded-lum-2" onClick$={() => modalRef.value?.showModal()}>
+                <Puzzle size={20} />
+                Open Message Builder
+              </button>
+            </div>
           </div>
         </div>
         <div class="flex items-center gap-4 pb-4 mt-5 mb-5 border-b border-gray-700" id="tickets">
@@ -283,6 +276,26 @@ export default component$(() => {
         </div>
 
       </div>
+
+      <dialog ref={modalRef}
+        class={{
+          'm-auto hidden open:flex text-lum-text lum-card lum-bg-gray-950/80 backdrop-blur-xl': true,
+          'open:animate-in open:fade-in open:slide-in-from-top-8 open:anim-duration-300': true,
+          'animate-out fade-out slide-in-from-top-8 anim-duration-300': true,
+        }}>
+        <div class="flex items-center gap-4 mb-6">
+          <Puzzle size={40} class="bg-linear-to-t from-purple-200/20 to-blue-200/20 p-2 rounded-lum" />
+          <h2 class="font-semibold tracking-tighter text-transparent bg-clip-text! bg-linear-to-t from-purple-200 to-blue-200 text-xl sm:text-2xl md:text-3xl">
+            Message Builder
+          </h2>
+          <button class="lum-btn lum-bg-transparent hover:lum-bg-red-500 absolute top-4 right-4" onClick$={() => {
+            modalRef.value?.close();
+          }}>
+            <X size={20} />
+          </button>
+        </div>
+        <MessageBuilder />
+      </dialog>
     </section>
   );
 });

@@ -2,6 +2,7 @@ import { component$ } from '@qwik.dev/core';
 import { DocumentHead, Link } from '@qwik.dev/router';
 import Sova from '~/components/images/Sova';
 import Home from 'lucide-icons-qwik/icons/Home';
+import { ContainerBuilder } from '@discordjs/builders';
 
 export default component$(() => {
   return (
@@ -14,6 +15,7 @@ export default component$(() => {
       </h1>
       <h1 class="font-bold text-red-500 text-2xl sm:text-5xl mt-16">
         404: Page not found
+        {JSON.stringify(new ContainerBuilder().addTextDisplayComponents(textDisplay => textDisplay.setContent('Page not found')).toJSON())}
       </h1>
       <p class="text-lg sm:text-2xl text-gray-400 my-6">
         Whoops! You've hit a dead-end.
