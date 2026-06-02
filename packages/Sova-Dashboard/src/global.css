@@ -21,6 +21,13 @@
   --font-display: "Figtree", "sans-serif";
   --lum-border-superellipse: 2;
   --lum-depth: 1;
+  --color-discord-300: #4E5058;
+  --color-discord-400: #36393F;
+  --color-discord-500: #32353B;
+  --color-discord-600: #313338;
+  --color-discord-700: #2F3136;
+  --color-discord-800: #2B2D31;
+  --color-discord-900: #202225;
 }
 
 @supports (corner-shape: squircle) {
