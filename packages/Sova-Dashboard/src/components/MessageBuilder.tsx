@@ -133,16 +133,14 @@ export default component$(() => {
           }}>
             <Trash size={20} />
           </button>
-
-          <MessagePreview message={{
-            author: {
-              bot: true,
-            },
-            components: messageStore.components,
-          }} />
-
         </div>)}
       </div>
+      <MessagePreview message={{
+        author: {
+          bot: true,
+        },
+        components: messageStore.components,
+      }} />
     </div>
   );
 });
