@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@qwik.dev/core';
+import { component$, useSignal, useStore } from '@qwik.dev/core';
 import { DocumentHead, routeLoader$ } from '@qwik.dev/router';
 import { getGuild } from '~/utils/discord';
 import Menu, { MenuCategory, MobileMenu } from '~/components/Menu';
@@ -20,6 +20,7 @@ import Ticket from 'lucide-icons-qwik/icons/Ticket';
 import Tags from 'lucide-icons-qwik/icons/Tags';
 import X from 'lucide-icons-qwik/icons/X';
 import MessageBuilder from '~/components/MessageBuilder';
+import { APIMessageTopLevelComponent } from 'discord-api-types/payloads/v10';
 
 const General = component$(() => {
   return (
@@ -92,8 +93,11 @@ const CustomCommands = component$(() => {
 export const useGuild = routeLoader$(async (props) => await getGuild(props));
 export default component$(() => {
   const guildData = useGuild().value;
-  const { guild, channels, roles } = guildData;
+  const { guild, channels, roles, settings } = guildData;
   const modalRef = useSignal<HTMLDialogElement>();
+  const settingsStore = useStore(settings);
+
+  const messageComponents = useSignal<APIMessageTopLevelComponent[]>([]);
 
   return (
     <section class="grid gap-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-7xl min-h-svh">
@@ -233,7 +237,10 @@ export default component$(() => {
               </h3>
             </div>
             <div class="flex">
-              <button class="lum-btn rounded-lum-2" onClick$={() => modalRef.value?.showModal()}>
+              <button class="lum-btn rounded-lum-2" onClick$={() => {
+                messageComponents.value = settingsStore.LeaveJoinMessage.join.message?.components ?? [];
+                modalRef.value?.showModal();
+              }}>
                 <Puzzle size={20} />
                 Open Message Builder
               </button>
@@ -247,7 +254,10 @@ export default component$(() => {
               </h3>
             </div>
             <div class="flex">
-              <button class="lum-btn rounded-lum-2" onClick$={() => modalRef.value?.showModal()}>
+              <button class="lum-btn rounded-lum-2" onClick$={() => {
+                messageComponents.value = settingsStore.LeaveJoinMessage.join.message?.components ?? [];
+                modalRef.value?.showModal();
+              }}>
                 <Puzzle size={20} />
                 Open Message Builder
               </button>
@@ -294,7 +304,7 @@ export default component$(() => {
             <X size={20} />
           </button>
         </div>
-        <MessageBuilder />
+        <MessageBuilder components={messageComponents.value} />
       </dialog>
     </section>
   );

@@ -3,6 +3,7 @@
   "main": "./src/schema.ts",
   "types": "./src/schema.ts",
   "devDependencies": {
+    "discord-api-types": "^0.38.48",
     "drizzle-orm": "^0.45.2"
   }
 }

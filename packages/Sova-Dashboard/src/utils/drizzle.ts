@@ -10,7 +10,7 @@ export const tursoDb = server$(function (requestEvent?: RequestEventBase) {
   return drizzle(client, { schema });
 });
 
-export function tursoClient(requestEvent: RequestEventBase): Client {
+function tursoClient(requestEvent: RequestEventBase): Client {
   const url = requestEvent.env.get('PRIVATE_TURSO_DATABASE_URL')?.trim();
   if (url === undefined) {
     throw new Error('PRIVATE_TURSO_DATABASE_URL is not defined');

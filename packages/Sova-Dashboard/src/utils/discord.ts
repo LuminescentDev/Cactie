@@ -1,5 +1,8 @@
 import { RequestEventBase } from '@qwik.dev/router';
 import { APIGuild, APIRole, APISortableChannel, PermissionFlagsBits, RESTError, RESTRateLimit } from 'discord-api-types/v10';
+import { tursoDb } from './drizzle';
+import { settings } from '@sova/drizzle-schema';
+import { eq } from 'drizzle-orm/sql/expressions';
 
 export async function fetchData<T>(url: string, props: RequestEventBase, accessToken?: string): Promise<T> {
   const res = await fetch(url, {
@@ -29,16 +32,16 @@ interface guildData {
 }
 
 const guildCache = new Map<string, guildData>();
-export async function getGuild(props: RequestEventBase, noCache?: boolean) {
-  const guildId = props.params.guildId;
+export async function getGuild(requestEvent: RequestEventBase, noCache?: boolean) {
+  const guildId = requestEvent.params.guildId;
   if (!noCache && guildCache.has(guildId)) return guildCache.get(guildId)!;
 
   console.log('Fetching guild data for', guildId);
 
   const [guild, channels, roles] = await Promise.all([
-    fetchData<APIGuild>(`https://discord.com/api/v10/guilds/${guildId}?with_counts=true`, props),
-    fetchData<APISortableChannel[]>(`https://discord.com/api/v10/guilds/${guildId}/channels`, props),
-    fetchData<APIRole[]>(`https://discord.com/api/v10/guilds/${guildId}/roles`, props),
+    fetchData<APIGuild>(`https://discord.com/api/v10/guilds/${guildId}?with_counts=true`, requestEvent),
+    fetchData<APISortableChannel[]>(`https://discord.com/api/v10/guilds/${guildId}/channels`, requestEvent),
+    fetchData<APIRole[]>(`https://discord.com/api/v10/guilds/${guildId}/roles`, requestEvent),
   ]);
 
   // Sort roles by position
@@ -48,7 +51,22 @@ export async function getGuild(props: RequestEventBase, noCache?: boolean) {
 
   guildCache.set(guildId, { guild, channels, roles });
 
-  return { guild, channels, roles };
+  // Fetch guild settings
+  const db = await tursoDb(requestEvent);
+  let guildSettings = await db.select()
+    .from(settings)
+    .where(
+      eq(settings.Id, guildId),
+    )
+    .get();
+
+  if (!guildSettings) {
+    // insert settings
+    guildSettings = await db.insert(settings).values({
+      Id: guildId,
+    }).returning();
+  }
+  return { guild, channels, roles, settings: guildSettings };
 }
 
 export async function getBotAndUserGuilds(accessToken: string, requestEvent: RequestEventBase, isDeveloper?: boolean) {
