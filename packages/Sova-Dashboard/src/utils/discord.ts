@@ -25,13 +25,14 @@ export async function fetchData<T>(url: string, props: RequestEventBase, accessT
   return data;
 }
 
-interface guildData {
-  guild: APIGuild,
-  channels: APISortableChannel[],
-  roles: APIRole[],
-}
+type GuildData = {
+  guild: APIGuild;
+  channels: APISortableChannel[];
+  roles: APIRole[];
+  settings: typeof settings.$inferSelect;
+};
 
-const guildCache = new Map<string, guildData>();
+const guildCache = new Map<string, GuildData>();
 export async function getGuild(requestEvent: RequestEventBase, noCache?: boolean) {
   const guildId = requestEvent.params.guildId;
   if (!noCache && guildCache.has(guildId)) return guildCache.get(guildId)!;
@@ -49,8 +50,6 @@ export async function getGuild(requestEvent: RequestEventBase, noCache?: boolean
   // Sort channels by position
   channels.sort((a, b) => a.position - b.position);
 
-  guildCache.set(guildId, { guild, channels, roles });
-
   // Fetch guild settings
   const db = await tursoDb(requestEvent);
   let guildSettings = await db.select()
@@ -64,9 +63,12 @@ export async function getGuild(requestEvent: RequestEventBase, noCache?: boolean
     // insert settings
     guildSettings = await db.insert(settings).values({
       Id: guildId,
-    }).returning();
+    }).returning().get();
   }
-  return { guild, channels, roles, settings: guildSettings };
+
+  const guildData: GuildData = { guild, channels, roles, settings: guildSettings };
+  guildCache.set(guildId, guildData);
+  return guildData;
 }
 
 export async function getBotAndUserGuilds(accessToken: string, requestEvent: RequestEventBase, isDeveloper?: boolean) {

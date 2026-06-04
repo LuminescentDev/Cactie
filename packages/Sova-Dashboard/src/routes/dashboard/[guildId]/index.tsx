@@ -238,7 +238,7 @@ export default component$(() => {
             </div>
             <div class="flex">
               <button class="lum-btn rounded-lum-2" onClick$={() => {
-                messageComponents.value = settingsStore.LeaveJoinMessage.join.message?.components ?? [];
+                messageComponents.value = settingsStore.LeaveJoinMessage?.join.message?.components ?? [];
                 modalRef.value?.showModal();
               }}>
                 <Puzzle size={20} />
@@ -255,7 +255,7 @@ export default component$(() => {
             </div>
             <div class="flex">
               <button class="lum-btn rounded-lum-2" onClick$={() => {
-                messageComponents.value = settingsStore.LeaveJoinMessage.join.message?.components ?? [];
+                messageComponents.value = settingsStore.LeaveJoinMessage?.leave.message?.components ?? [];
                 modalRef.value?.showModal();
               }}>
                 <Puzzle size={20} />

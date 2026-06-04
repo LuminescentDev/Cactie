@@ -2,9 +2,9 @@ import { APIMessageTopLevelComponent } from 'discord-api-types/v10';
 
 export type LeaveJoinMessage = {
   channelId?: string;
-  message: {
+  message?: {
     components: APIMessageTopLevelComponent[];
-  } | false;
+  };
 };
 export type LeaveJoinMessageSetting = {
   leave: LeaveJoinMessage;
