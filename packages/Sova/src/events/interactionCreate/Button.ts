@@ -1,0 +1,55 @@
+import { ButtonInteraction, Client, EmbedBuilder, StringSelectMenuInteraction, TextChannel } from 'discord.js';
+import checkPerms from '~/util/misc/checkPerms';
+import buttons from '~/lists/buttons';
+
+export default async (client: Client<true>, interaction: ButtonInteraction | StringSelectMenuInteraction) => {
+  // Check if interaction is button
+  if (!interaction.isButton() && !interaction.isStringSelectMenu()) return;
+  if (!interaction.guild) return;
+
+  // There may be extra data along with the customId, so we split it and get the first part as the id
+  const IdWithArgs = interaction instanceof StringSelectMenuInteraction
+    ? interaction.values[0]
+    : interaction.customId;
+  const Id = IdWithArgs?.split('|')[0];
+  const args = IdWithArgs?.split('|').slice(1);
+  if (!Id) return;
+
+  // Log every button interaction
+  logger.info(`${interaction.user.username} clicked button with id: ${IdWithArgs}, in ${interaction.guild.name}`);
+
+  // Get the button from the available buttons in the bot, if there isn't one, just return because discord will throw an error itself
+  const button = buttons.get(Id);
+  if (!button) return;
+
+  // Check if bot has the permissions necessary in the guild to run the command
+  if (button.botPerms) {
+    const permCheck = checkPerms(button.botPerms, interaction.guild.members.me!);
+    if (permCheck) return error(permCheck, interaction, true);
+  }
+
+  // Log
+  logger.info(`${interaction.user.username} clicked long-term button: ${button.name}, in ${interaction.guild.name}`);
+
+  // Defer and execute the button
+  try {
+    if (button.defer) await interaction[button.defer == 'reply' ? 'deferReply' : 'deferUpdate']({ flags: button.flags });
+    button.execute(interaction, client, args);
+  }
+  catch (err) {
+    const interactionFailed = new EmbedBuilder()
+      .setColor('Random')
+      .setTitle('INTERACTION FAILED')
+      .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() ?? undefined })
+      .addFields([
+        { name: '**Type:**', value: 'Button' },
+        { name: '**Interaction:**', value: `${button.name}` },
+        { name: '**Error:**', value: `\`\`\`\n${err}\n\`\`\`` },
+      ]);
+    if (interaction.guild) interactionFailed.addFields([{ name: '**Guild:**', value: interaction.guild.name }, { name: '**Channel:**', value: `${interaction.channel}` }]);
+    const errorchannel = client.guilds.cache.get('811354612547190794')!.channels.cache.get('830013224753561630') as TextChannel;
+    errorchannel.send({ content: '<@&839158574138523689>', embeds: [interactionFailed] });
+    interaction.user.send({ embeds: [interactionFailed] }).catch(err => logger.warn(err));
+    logger.error(err);
+  }
+};

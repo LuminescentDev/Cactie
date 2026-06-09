@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1780260094563,
+      "tag": "0000_sour_absorbing_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1780265012533,
+      "tag": "0001_tough_silvermane",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1780280164868,
+      "tag": "0002_freezing_dormammu",
+      "breakpoints": true
+    }
+  ]
+}

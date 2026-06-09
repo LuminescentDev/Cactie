@@ -1,0 +1,42 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "6387ca2c-b11d-45ae-951f-29a262b4f0c2",
+  "prevId": "9ecffaa5-e881-447c-96c6-e3bea83f5f8e",
+  "tables": {
+    "settings": {
+      "name": "settings",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "LeaveJoinMessage": {
+          "name": "LeaveJoinMessage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
