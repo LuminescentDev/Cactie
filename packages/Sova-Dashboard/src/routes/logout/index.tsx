@@ -2,11 +2,11 @@ import type { RequestHandler } from '@qwik.dev/router';
 import { eq } from 'drizzle-orm/sql/expressions/conditions';
 import { tursoDb } from '~/utils/drizzle';
 import { sessions } from '@sova/drizzle-schema';
-import { getSession } from '../plugin@auth';
+import { getSessionFn } from '~/utils/auth';
 
 export const onGet: RequestHandler = async (requestEvent) => {
   const { redirect, cookie } = requestEvent;
-  const session = await getSession();
+  const session = await getSessionFn(requestEvent);
 
   if (session) {
     const db = await tursoDb(requestEvent);
