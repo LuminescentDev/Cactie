@@ -1,6 +1,6 @@
 allowBuilds:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - bufferutil
-  - prisma
-  - utf-8-validate
+  '@prisma/client': true
+  '@prisma/engines': true
+  bufferutil: true
+  prisma: true
+  utf-8-validate: true
