@@ -1,4 +1,4 @@
-onlyBuiltDependencies:
+allowBuilds:
   - '@prisma/client'
   - '@prisma/engines'
   - bufferutil
