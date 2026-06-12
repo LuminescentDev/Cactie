@@ -1,19 +1,17 @@
-# Use the official Node.js 23 Alpine image
-FROM node:23-alpine
+# Switch to the slim Debian-based image
+FROM node:23-slim
 
 # Set working directory
 WORKDIR /app
 
-# Enable corepack instead of a global npm install
+# Enable corepack
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
-# Note: Only include pnpm-workspace.yaml if you are actually running a monorepo setup
-# COPY pnpm-workspace.yaml ./ 
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile --child-concurrency 1
+# Install dependencies (We can drop the child-concurrency since slim has better overhead handling)
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
@@ -21,8 +19,6 @@ COPY . .
 # Generate Prisma client
 RUN pnpm prisma generate
 
-# Expose port (if your bot has a web server)
 EXPOSE 3000
 
-# Start the bot
 CMD ["pnpm", "start"]
