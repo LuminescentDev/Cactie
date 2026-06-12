@@ -7,11 +7,11 @@ services:
     environment:
       - NODE_ENV=production
       - WEBHOOK_PORT=${WEBHOOK_PORT:-3000}
-      - DATABASE_URL=${DATABASE_URL}
+      - PRIVATE_TURSO_DATABASE_URL=${PRIVATE_TURSO_DATABASE_URL}
+      - PRIVATE_TURSO_AUTH_TOKEN=${PRIVATE_TURSO_AUTH_TOKEN}
       # Add your environment variables here or use an .env file
       - VOTE_AUTH=${VOTE_AUTH}
       - BOT_TOKEN=${BOT_TOKEN}
-      - PREFIX=${PREFIX}
     restart: unless-stopped
     volumes:
       - ./logs:/app/logs

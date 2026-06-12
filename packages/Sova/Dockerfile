@@ -1,5 +1,5 @@
 # Use the official Node.js 23 Alpine image
-FROM node:23-alpine
+FROM oven/bun:alpine
 
 # Set working directory
 WORKDIR /app
