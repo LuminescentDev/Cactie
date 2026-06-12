@@ -13,7 +13,7 @@ COPY package.json pnpm-lock.yaml ./
 # COPY pnpm-workspace.yaml ./ 
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --child-concurrency 1
 
 # Copy source code
 COPY . .
