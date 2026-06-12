@@ -1,20 +1,25 @@
-# Use the official Node.js 23 Alpine image
+# Use the official Bun Alpine image
 FROM oven/bun:alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package.json bun.lock ./
+# 1. Copy root workspace files
+COPY package.json bun.lock* ./
 
-# Install dependencies
-RUN bun install
+# 2. Copy package configurations for ALL required workspaces
+# This keeps your Docker layers cached perfectly
+COPY packages/Sova/package.json ./packages/Sova/
+COPY packages/drizzle-schema/package.json ./packages/drizzle-schema/
 
-# Copy source code
+# 3. Install dependencies (Bun will now successfully link the workspaces)
+RUN bun install --frozen-lockfile
+
+# 4. Copy the actual source code for everything
 COPY . .
 
 # Expose port (if your bot has a web server)
 EXPOSE 3000
 
-# Start the bot
-CMD ["bun", "start:bot"]
+# 5. Start the bot via the workspace filter
+CMD ["bun", "--filter", "Sova", "start:bot"]
