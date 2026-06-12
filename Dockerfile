@@ -4,11 +4,13 @@ FROM node:23-alpine
 # Set working directory
 WORKDIR /app
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# Enable corepack instead of a global npm install
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy package files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml ./
+# Note: Only include pnpm-workspace.yaml if you are actually running a monorepo setup
+# COPY pnpm-workspace.yaml ./ 
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
