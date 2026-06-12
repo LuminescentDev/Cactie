@@ -11,7 +11,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile --config.only-built-dependencies=@prisma/client,@prisma/engines,bufferutil,prisma,utf-8-validate
+RUN pnpm install --frozen-lockfile --allow-build=@prisma/client,@prisma/engines,bufferutil,prisma,utf-8-validate
 
 # Copy source code
 COPY . .
