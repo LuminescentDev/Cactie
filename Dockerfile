@@ -5,7 +5,7 @@ FROM oven/bun:alpine
 WORKDIR /app
 
 # Copy package files
-COPY package.json ./
+COPY package.json bun.lock ./
 
 # Install dependencies
 RUN bun install
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the bot
-CMD ["bun", "start"]
+CMD ["bun", "start:bot"]

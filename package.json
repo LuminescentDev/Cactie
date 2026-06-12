@@ -4,6 +4,9 @@
   "engines": {
     "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
   },
+  "scripts": {
+    "start:bot": "bun --bun ./packages/Sova/src/index.ts"
+  },
   "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
   "type": "module",
   "workspaces": ["packages/*"]

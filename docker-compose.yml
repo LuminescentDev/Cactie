@@ -16,4 +16,4 @@ services:
     volumes:
       - ./logs:/app/logs
     # Run database migrations before starting the bot
-    command: sh -c "bun run start"
+    command: sh -c "bun start:bot"
