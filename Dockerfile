@@ -13,7 +13,7 @@ COPY packages/Sova/package.json ./packages/Sova/
 COPY packages/DrizzleSchema/package.json ./packages/DrizzleSchema/
 
 # 3. Install dependencies (Bun will now successfully link the workspaces)
-RUN bun install --frozen-lockfile
+RUN bun install
 
 # 4. Copy the actual source code for everything
 COPY . .
