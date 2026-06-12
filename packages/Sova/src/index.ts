@@ -4,6 +4,7 @@ import { Client, Partials, GatewayIntentBits, Message, CommandInteraction, Modal
 import { createLogger, format, Logger, transports } from 'winston';
 import dotenv from 'dotenv';
 import { errorFunc } from './util/misc/error';
+import path from 'path';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ global.sleep = sleepfunc;
 export const lastStarted = new Date();
 function minTwoDigits(n: number) { return (n < 10 ? '0' : '') + n; }
 export const logDate = `${minTwoDigits(lastStarted.getMonth() + 1)}-${minTwoDigits(lastStarted.getDate())}-${lastStarted.getFullYear()}`;
+export const srcDir = path.resolve(import.meta.dirname);
 
 // Create a logger
 global.logger = createLogger({
@@ -73,7 +75,7 @@ logger.info('Logger started');
 global.error = errorFunc;
 
 // Load the universal and discord-specific handlers
-const handlers = readdirSync('./src/handlers').filter((file: string) => file.endsWith('.ts'));
+const handlers = readdirSync(`${srcDir}/handlers`).filter((file: string) => file.endsWith('.ts'));
 await Promise.all(
   handlers.map(async (handlerName) => {
     const handlerModule = await import(`./handlers/${handlerName}`);

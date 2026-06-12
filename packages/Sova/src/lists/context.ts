@@ -1,12 +1,13 @@
 import { readdirSync } from 'fs';
 import { Collection } from 'discord.js';
 import { ContextMenuCommand } from '~/lists/Objects';
+import { srcDir } from '..';
 
 // Set the contextcommands collection
 const contextcommands = new Collection<string, ContextMenuCommand<'Message'> | ContextMenuCommand<'User'>>();
 
 // Register all context menu commands
-const contextFiles = readdirSync('./src/context');
+const contextFiles = readdirSync(`${srcDir}/context`);
 await Promise.all(contextFiles.map(async file => {
   const module = await import(`../context/${file}`);
   const context = module.context;

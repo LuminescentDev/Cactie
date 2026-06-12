@@ -1,12 +1,13 @@
 import { readdirSync } from 'fs';
 import { Collection } from 'discord.js';
 import { Modal } from '~/lists/Objects';
+import { srcDir } from '..';
 
 // Set the modals collection
 const modals = new Collection<string, Modal>();
 
 // Register all modals
-const modalFiles = readdirSync('./src/modals').filter(file => file.endsWith('.ts'));
+const modalFiles = readdirSync(`${srcDir}/modals`).filter(file => file.endsWith('.ts'));
 await Promise.all(modalFiles.map(async file => {
   const modalModule = await import(`../modals/${file}`);
   const name = Object.keys(modalModule)[0] as keyof typeof modalModule;

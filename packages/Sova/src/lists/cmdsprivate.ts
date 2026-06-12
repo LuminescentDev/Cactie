@@ -1,12 +1,13 @@
 import { readdirSync } from 'fs';
 import { Collection } from 'discord.js';
 import { PrivateCommand } from '~/lists/Objects';
+import { srcDir } from '..';
 
 // Set the commands collection
 const commands = new Collection<string, PrivateCommand>();
 
 // Register all commands
-const commandFolders = readdirSync('./src/privatecmds');
+const commandFolders = readdirSync(`${srcDir}/privatecmds`);
 await Promise.all(commandFolders.map(async file => {
   const module = await import(`../privatecmds/${file}`);
 

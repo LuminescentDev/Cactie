@@ -1,16 +1,17 @@
 import { readdirSync } from 'fs';
 import { Collection } from 'discord.js';
 import { LoadedCommand } from '~/lists/Objects';
+import { srcDir } from '..';
 
 // Set the slash commands collection
 const slashcommands = new Collection<string, LoadedCommand>();
 const cooldowns = new Collection<string, Collection<string, number>>();
 
 // Register all slash commands
-const slashcommandFolders = readdirSync('./src/commands');
+const slashcommandFolders = readdirSync(`${srcDir}/commands`);
 await Promise.all(
   slashcommandFolders.map(async folder => {
-    const slashcommandFiles = readdirSync(`./src/commands/${folder}`).filter(file => file.endsWith('ts'));
+    const slashcommandFiles = readdirSync(`${srcDir}/commands/${folder}`).filter(file => file.endsWith('ts'));
     await Promise.all(
       slashcommandFiles.map(async file => {
         const module = await import(`../commands/${folder}/${file}`);
