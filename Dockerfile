@@ -10,7 +10,7 @@ COPY package.json bun.lock* ./
 # 2. Copy package configurations for ALL required workspaces
 # This keeps your Docker layers cached perfectly
 COPY packages/Sova/package.json ./packages/Sova/
-COPY packages/drizzle-schema/package.json ./packages/drizzle-schema/
+COPY packages/DrizzleSchema/package.json ./packages/DrizzleSchema/
 
 # 3. Install dependencies (Bun will now successfully link the workspaces)
 RUN bun install --frozen-lockfile
