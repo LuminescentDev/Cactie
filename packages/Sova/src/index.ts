@@ -5,6 +5,7 @@ import { createLogger, format, Logger, transports } from 'winston';
 import dotenv from 'dotenv';
 import { errorFunc } from './util/misc/error';
 import path from 'path';
+import { setupMochi } from './util/analytics/mochi';
 
 dotenv.config();
 
@@ -59,7 +60,7 @@ global.logger = createLogger({
     format.errors({ stack: true }),
     format.colorize(),
     format.timestamp(),
-    format.printf(log => `[${new Date(log.timestamp).toLocaleString('default', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })} ${log.level}]: ${log.message}${log.stack ? `\n${log.stack}` : ''}`),
+    format.printf(log => `[${new Date(log.timestamp as string | number | Date).toLocaleString('default', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })} ${log.level}]: ${log.message}${log.stack ? `\n${log.stack}` : ''}`),
   ),
   transports: [
     new transports.Console(),
@@ -73,6 +74,7 @@ global.logger = createLogger({
 logger.info('Logger started');
 
 global.error = errorFunc;
+setupMochi(client);
 
 // Load the universal and discord-specific handlers
 const handlers = readdirSync(`${srcDir}/handlers`).filter((file: string) => file.endsWith('.ts'));

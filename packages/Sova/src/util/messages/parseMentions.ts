@@ -19,9 +19,12 @@ export default async function parseMentions(text: string, guild: Guild) {
   // Parse all channel mentions
   const channelMatches = [...text.matchAll(new RegExp(MessageMentions.ChannelsPattern, 'g'))];
   for (const match of channelMatches) {
-    const channel = await guild.client.channels.fetch(match[1]).catch(() => { return null; }) as GuildChannel | null;
+    const id = match[1];
+    if (!id) continue;
+
+    const channel = await guild.client.channels.fetch(id).catch(() => { return null; }) as GuildChannel | null;
     if (!channel) {
-      logger.warn(`Channel Id ${match[1]} wasn't found!`);
+      logger.warn(`Channel Id ${id} wasn't found!`);
       parsed = parsed.replace(match[0], '**#Unknown Channel**');
       continue;
     }
@@ -31,9 +34,12 @@ export default async function parseMentions(text: string, guild: Guild) {
   // Parse all role mentions
   const roleMatches = [...text.matchAll(new RegExp(MessageMentions.RolesPattern, 'g'))];
   for (const match of roleMatches) {
-    const role = await guild.roles.fetch(match[1]).catch(() => { return null; });
+    const id = match[1];
+    if (!id) continue;
+
+    const role = await guild.roles.fetch(id).catch(() => { return null; });
     if (!role) {
-      logger.warn(`Role Id ${match[1]} wasn't found!`);
+      logger.warn(`Role Id ${id} wasn't found!`);
       parsed = parsed.replace(match[0], '**@Unknown Role**');
       continue;
     }
@@ -43,9 +49,12 @@ export default async function parseMentions(text: string, guild: Guild) {
   // Parse all user mentions
   const userMatches = [...text.matchAll(new RegExp(MessageMentions.UsersPattern, 'g'))];
   for (const match of userMatches) {
-    const user = await guild.client.users.fetch(match[1]).catch(() => { return null; });
+    const id = match[1];
+    if (!id) continue;
+
+    const user = await guild.client.users.fetch(id).catch(() => { return null; });
     if (!user) {
-      logger.warn(`User Id ${match[1]} wasn't found!`);
+      logger.warn(`User Id ${id} wasn't found!`);
       parsed = parsed.replace(match[0], '**@Unknown User**');
       continue;
     }
