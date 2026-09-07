@@ -62,7 +62,7 @@
     "lucide-icons-qwik": "1.16.0-qwik-v2",
     "prettier": "3.8.3",
     "simple-icons-qwik": "16.19.0-qwik-v2",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.3",
     "ts-morph": "^28.0.0",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.60.0",
